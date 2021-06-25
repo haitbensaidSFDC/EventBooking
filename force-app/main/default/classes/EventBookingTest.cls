@@ -111,9 +111,10 @@ public class EventBookingTest {
             Test.stopTest();
 
             // Then
-
             System.assert(!result.isSuccess());
             System.assert(result.getErrors().size() > 0);
+            System.assertEquals('Phone request are only allowed to have three attendee',
+            result.getErrors()[0].getMessage());
 
         }
         
@@ -174,6 +175,9 @@ public class EventBookingTest {
             // Then
 
             System.assert(!result.isSuccess());
+            System.assert(result.getErrors().size() > 0);
+            System.assertEquals('Web request are only allowed to have one attendee',
+            result.getErrors()[0].getMessage());
 
                 
         } 

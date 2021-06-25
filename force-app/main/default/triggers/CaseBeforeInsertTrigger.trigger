@@ -15,12 +15,12 @@ trigger CaseBeforeInsertTrigger on Case (before insert) {
             switch on r.Origin {
                 when 'Web' {
                     if(s >= 2 ){
-                        r.addError('You cannot create a request without attaching an account');
+                        r.addError('Web request are only allowed to have one attendee');
                     }
                 }
                 when 'Phone'{
                     if(s >= 4 ){
-                        r.addError('You cannot create a request without attaching an account');
+                        r.addError('Phone request are only allowed to have three attendee');
                     }
                 }
             }    
