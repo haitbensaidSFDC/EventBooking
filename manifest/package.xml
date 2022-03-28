@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+	<types>
+		<members>CalloutUtils</members>
+		<members>CalloutUtilsMock</members>
+		<members>CalloutUtilsTst</members>
+		<members>CaseTriggerHandler</members>
+		<members>CaseTriggerHelper</members>
+		<members>CaseTriggerHelper_Test</members>
+		<members>ExternalSystemService</members>
+		<members>Log</members>
+		<members>Log_Test</members>
+		<members>TestDataFactory</members>
+		<members>TriggerHandler</members>
+		<members>TriggerHandler_Test</members>
+		<name>ApexClass</name>
+	</types>
+	<types>
+		<members>CaseTrigger</members>
+		<name>ApexTrigger</name>
+	</types>
+	<types>
+		<members>Log__c</members>
+		<name>CustomObject</name>
+	</types>
+	<version>53.0</version>
+</Package>
