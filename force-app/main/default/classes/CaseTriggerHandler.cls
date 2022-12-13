@@ -32,16 +32,14 @@ public with sharing class CaseTriggerHandler extends TriggerHandler {
         }
     }
 
+    /**
+     * 
+     */
     public override void afterUpdate() {
-        Boolean requestSentToExternalSystem = false;
-        Integer i=0;
-        
         Case request = (Case) Trigger.new[0];
-    
-        Case r = [SELECT AccountId, Status FROM Case where id=:request.ID];
+        Case r = [SELECT Status FROM Case where id=:request.ID];
         if(r.Status == 'Closed'){
-            ExternalSystemService service = new ExternalSystemService();
-            service.registerAttendees(r);
+             ExternalSystemService.registerAttendees(r.Id);
         }
     }
 }

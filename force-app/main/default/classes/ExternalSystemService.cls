@@ -1,23 +1,15 @@
 public  class ExternalSystemService {
 
-    private String webServiceURL;
+    @future(callout=true)
+    public static void registerAttendees(Id caseID){
+        
+            Case reservation = [SELECT Id, AccountId FROM Case WHERE Id = :caseID LIMIT 1 ];
 
-    public ExternalSystemService(){
-        this.webServiceURL = 'https://th-apex-http-callout.herokuapp.com/animals';
-    }
+            for(Account a : [ SELECT id, (SELECT id, name, email FROM Contacts) FROM Account WHERE id = :reservation.AccountId]){
+                for(Contact c : a.Contacts){
 
-    public void registerAttendees(Case r){
-            for(Account a : [SELECT id FROM Account where id = :r.AccountId]){
-                for(Contact c : [SELECT id,name, email FROM Contact where accountid =: a.id ]){
-                    Http http = new Http();
-                    HttpRequest request = new HttpRequest();
-                    request.setEndpoint(this.webServiceURL);
-                    request.setMethod('POST');
-                    request.setHeader('Content-Type', 'application/json;charset=UTF-8');
-                    // Set the body as a JSON object
-                    request.setBody('{"name":"'+ c.name + '-' + c.email  +'}');
-                    HttpResponse response = http.send(request);
-                    // Parse the JSON response
+                    HttpResponse response = RegistrationHelper.createRegistration(c);
+
                     if (response.getStatusCode() != 201) {
                         System.debug('The status code returned was not expected: ' +
                             response.getStatusCode() + ' ' + response.getStatus());
@@ -26,11 +18,10 @@ public  class ExternalSystemService {
                        notifyAttendeeByEmail(c);
                     }
                 }
-            
         }
     } 
 
-    public void notifyAttendeeByEmail(Contact account){
+    public static void notifyAttendeeByEmail(Contact account){
       
         Task tk = new Task();
         tk.Subject = 'Send Email To' + account.name;
@@ -38,6 +29,8 @@ public  class ExternalSystemService {
         tk.Priority = 'Normal';
         tk.WhatId = account.ID;
         insert tk;
+
+        // TODO: notify contact by mail
     } 
 
 
