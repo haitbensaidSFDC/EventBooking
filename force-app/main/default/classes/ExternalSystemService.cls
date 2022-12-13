@@ -21,17 +21,9 @@ public  class ExternalSystemService {
         }
     } 
 
-    public static void notifyAttendeeByEmail(Contact account){
-      
-        Task tk = new Task();
-        tk.Subject = 'Send Email To' + account.name;
-        tk.Status = 'Open';
-        tk.Priority = 'Normal';
-        tk.WhatId = account.ID;
-        insert tk;
-
-        // TODO: notify contact by mail
+    public static void notifyAttendeeByEmail(Contact contact){
+        String confirmSubject = 'B.hotels Registration confirmed';
+        String body = 'Hello ' + contact.name + ' \n Your registration is confirmed \n ' + 'Cordially!' ;
+        EmailService.sendEmail(contact.Email, confirmSubject, body);
     } 
-
-
 }
