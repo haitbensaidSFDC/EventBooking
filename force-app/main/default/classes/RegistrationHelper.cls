@@ -15,8 +15,7 @@ public with sharing class RegistrationHelper {
         // send registration request
         Http http = new Http();
         HttpRequest request = new HttpRequest();
-        // TODO: callout:registration_Endpoint/animals
-        request.setEndpoint('https://th-apex-http-callout.herokuapp.com/animals');
+        request.setEndpoint('callout:registration_Endpoint/animals');
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json;charset=UTF-8');
         request.setBody(gen.getAsString());
