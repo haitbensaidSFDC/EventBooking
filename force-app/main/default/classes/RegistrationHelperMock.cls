@@ -6,6 +6,10 @@ global class RegistrationHelperMock implements HttpCalloutMock {
 
     private Integer statusCode ;
 
+    /**
+     * param constructor
+     * @param statusCode http status code to be returned
+     */
     public RegistrationHelperMock(Integer statusCode) {
         this.statusCode = statusCode;
     }
