@@ -16,7 +16,6 @@ public class EventBookingTest {
             Test.stopTest();
 
             // Then
-
             System.assert(!result.isSuccess());
             System.assert(result.getErrors().size() > 0);
             System.assertEquals('You cannot create a request without attaching an account',
@@ -181,6 +180,34 @@ public class EventBookingTest {
 
                 
         } 
-    
-    
+
+        @isTest
+        public static void confirmRegisterContactsWhenCaseIsClosed() {
+
+            // Given     
+
+            Test.setMock(HttpCalloutMock.class, new RegistrationHelperMock(201));
+
+            Account a1 = new Account(Name = 'Salesforce');
+            insert a1;
+            
+            Contact c1 = new Contact(LastName = 'Contact 1', AccountId = a1.ID, Email = 'test1@test.com');
+            insert c1;
+
+            Case request = new Case(Origin = 'Phone',Subject = 'Event Booking', Description = 'simple description', AccountId = a1.ID);
+            insert request;
+
+            Test.startTest();
+
+            request.Status = 'closed';
+            update request;
+
+            Test.stopTest();
+
+            List<Log__c> logs = [SELECT Message__c FROM Log__c];
+
+            String msg = logs[0].message__c;
+
+            System.assertEquals('notify success ; ()', msg);
+        }
 }

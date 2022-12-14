@@ -1,4 +1,11 @@
 public with sharing class EmailService {
+
+    /**
+     * mehtod used to send email messages
+     * @param toAddresse email address of recipient
+     * @param subject subject of the message
+     * @param body body of the message 
+     */
     public static void sendEmail(String toAddresse, String subject, String body) {
 
         Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
@@ -7,10 +14,12 @@ public with sharing class EmailService {
         message.plainTextBody = body;
         Messaging.SingleEmailMessage[] messages = new List<Messaging.SingleEmailMessage> {message};
         Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
+        
         if (results[0].success) {
-            System.debug('email is sent successfully.');
+            Log.error('notify success');
+            System.debug('email is sent successfully.' + results[0]);
         } else {
-            System.debug('The email failed to send: ' + results[0].errors[0].message);
+            Log.error('The email failed to send: ' + results[0].errors[0].message);
         }
     }
   }

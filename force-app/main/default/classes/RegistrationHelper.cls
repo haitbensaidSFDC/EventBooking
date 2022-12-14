@@ -1,10 +1,15 @@
 public with sharing class RegistrationHelper {
 
+    /**
+     * create a registration http request to the external system
+     * @param attendee attendee to be registered
+     * @return  `HttpResponse`
+     */
     public static HttpResponse createRegistration(Contact attendee) {
         // prepare request body
         JSONGenerator gen = JSON.createGenerator(true);
         gen.writeStartObject();
-        gen.writeStringField('name', attendee.Name + attendee.Email);
+        gen.writeStringField('name', 'static' );
         gen.writeEndObject();
 
         // send registration request
