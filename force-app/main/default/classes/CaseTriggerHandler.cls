@@ -1,35 +1,31 @@
 public with sharing class CaseTriggerHandler extends TriggerHandler {
 
     public override void beforeInsert() {
-        // we get the case first
         Case r = (Case) Trigger.new[0];
-        
-        // Testing if the content of case is null or not to avoid NPE ;) 
-        if(r != null && r.AccountId != null){
-
-            Account account =  [SELECT ID, (select id from contacts) FROM Account where id = :r.AccountId LIMIT 1];
-
-            Integer s = account.Contacts.size();
-
-            if(s ==0){
-                r.addError('You cannot create a request for accounts without contacts');
-            } else {
-            switch on r.Origin {
-                when 'Web' {
-                    if(s >= 2 ){
-                        r.addError('Web request are only allowed to have one attendee');
-                    }
-                }
-                when 'Phone'{
-                    if(s >= 4 ){
-                        r.addError('Phone request are only allowed to have three attendee');
-                    }
-                }
-            }   
-        }
-
-        } else {
+        if (r.AccountId == null) {
             r.addError('You cannot create a request without attaching an account');
+            return;
+        }
+        Account account = [SELECT Id, (SELECT Id FROM Contacts) FROM Account WHERE Id = :r.AccountId LIMIT 1];
+        if (account.Contacts.isEmpty()) {
+            r.addError('You cannot create a request for accounts without contacts');
+            return;
+        }
+        Integer numAttendees = account.Contacts.size();
+        switch on r.Origin {
+            when 'Web' {
+                if (numAttendees > 1) {
+                    r.addError('Web request are only allowed to have one attendee');
+                }
+            }
+            when 'Phone'{
+                if (numAttendees > 3) {
+                    r.addError('Phone request are only allowed to have three attendee');
+                }
+            }
+            when else {
+                // handle other origin values if needed
+            }
         }
     }
 
