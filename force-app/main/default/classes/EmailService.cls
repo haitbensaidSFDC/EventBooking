@@ -13,7 +13,7 @@ public with sharing class EmailService {
     /**
      * mehtod used to send email messages
      * @param toAddresse email address of recipient
-     * @param subject subject of the message
+     * @param subject of the message
      * @param body body of the message 
      */
     private static void sendEmail(String toAddresse, String subject, String body) {
@@ -26,10 +26,11 @@ public with sharing class EmailService {
         Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
         
         if (results[0].success) {
-            Log.error('notify success');
-            System.debug('email is sent successfully.' + results[0]);
+            // used to verify success in unit test
+            Log.error(Constants.EMAIL_SUCCESS_MESSAGE);
         } else {
-            Log.error('The email failed to send: ' + results[0].errors[0].message);
+            // used to verify success in unit test
+            Log.error(Constants.EMAIL_ERROR_MESSAGE + results[0].errors[0].message);
         }
     }
   }

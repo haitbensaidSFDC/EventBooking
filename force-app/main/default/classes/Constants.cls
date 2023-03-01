@@ -16,4 +16,9 @@ public with sharing class Constants {
     public static final String WEB_ORGIN = 'web';
     public static final String PHONE_ORGIN = 'phone';
 
+
+    // Email messages
+    public static final String EMAIL_ERROR_MESSAGE = 'The email failed to send: ';
+    public static final String EMAIL_SUCCESS_MESSAGE = 'notify success';
+
 }
