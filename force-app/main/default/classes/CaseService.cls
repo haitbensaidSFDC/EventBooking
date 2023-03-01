@@ -32,7 +32,7 @@ public with sharing class CaseService {
     }
 
     /**
-     * manage registration 
+     * manage registrations for contacts whose account cases are closed
      * @param newCases 
      */
     public static void manageRegistrations(List<Case> newCases) {
