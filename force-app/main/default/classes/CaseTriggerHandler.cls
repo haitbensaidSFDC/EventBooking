@@ -11,6 +11,6 @@ public with sharing class CaseTriggerHandler extends TriggerHandler {
     }
 
     public override void afterUpdate() {
-        CaseService.manageRegestrations(cases);
+        CaseService.manageRegistrations(cases);
     }
 }

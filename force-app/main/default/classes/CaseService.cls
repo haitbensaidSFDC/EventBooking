@@ -2,7 +2,7 @@
 public with sharing class CaseService {
 
     /**
-     * 
+     * Validate the newly created registration cases
      * @param newCases 
      */
     public static void validateCases(List<Case> newCases) {
@@ -32,10 +32,10 @@ public with sharing class CaseService {
     }
 
     /**
-     * 
+     * manage registration 
      * @param newCases 
      */
-    public static void manageRegestrations(List<Case> newCases) {
+    public static void manageRegistrations(List<Case> newCases) {
         for(Case caseRequest : newCases) {
             if(caseRequest.Status == Constants.STATUS_CLOSED){
                 ExternalSystemService.registerAttendees(caseRequest.Id);
