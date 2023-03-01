@@ -4,11 +4,9 @@ public class EventBookingTest {
         @isTest
         public static void refuseCaseCreationWhenAnAccountIsNotAttachedToACase(){
             // Given
-    
             Case request = new Case(Origin = 'Phone',Subject = 'Event Booking', Description = 'Book Spots');
             
             // When 
-
             Test.startTest();
 
             Database.SaveResult result = Database.insert(request, false);
