@@ -170,7 +170,7 @@ public class EventBookingTest {
     public static void confirmRegisterContactsWhenCaseIsClosedSuccess() {
 
         // Given     
-        Test.setMock(HttpCalloutMock.class, new RegistrationHelperMock(201));
+        Test.setMock(HttpCalloutMock.class, new RegistrationCalloutMock(201));
         Account a1 = new Account(Name = 'Salesforce');
         insert a1;
         Contact c1 = new Contact(LastName = 'Contact 1', AccountId = a1.ID, Email = 'test1@test.com');
@@ -196,7 +196,7 @@ public class EventBookingTest {
     public static void confirmRegisterContactsWhenCaseIsClosedFail() {
 
         // Given     
-        Test.setMock(HttpCalloutMock.class, new RegistrationHelperMock(500));
+        Test.setMock(HttpCalloutMock.class, new RegistrationCalloutMock(500));
         Account a1 = new Account(Name = 'Salesforce');
         insert a1;
         Contact c1 = new Contact(LastName = 'Contact 1', AccountId = a1.ID, Email = 'test1@test.com');

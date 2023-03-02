@@ -2,7 +2,7 @@
  * class to mock the the External System http response when requested during tests
  */
 @isTest
-global class RegistrationHelperMock implements HttpCalloutMock {
+global class RegistrationCalloutMock implements HttpCalloutMock {
 
     private Integer statusCode ;
 
@@ -10,7 +10,7 @@ global class RegistrationHelperMock implements HttpCalloutMock {
      * param constructor
      * @param statusCode http status code to be returned
      */
-    public RegistrationHelperMock(Integer statusCode) {
+    public RegistrationCalloutMock(Integer statusCode) {
         this.statusCode = statusCode;
     }
     
