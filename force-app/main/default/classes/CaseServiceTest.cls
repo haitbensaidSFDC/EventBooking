@@ -164,4 +164,29 @@ public with sharing class CaseServiceTest {
 
             
     }
+
+    @isTest
+    public static void registerContactsWhenCaseIsClosed() {
+        // Given     
+        Test.setMock(HttpCalloutMock.class, new RegistrationCalloutMock(201));
+        Account a1 = new Account(Name = 'Salesforce');
+        insert a1;
+        Contact c1 = new Contact(LastName = 'Contact 1', AccountId = a1.ID, Email = 'test1@test.com');
+        insert c1;
+        Case request = new Case(Origin = 'Phone',Subject = 'Event Booking', Description = 'simple description', AccountId = a1.ID);
+        insert request;
+
+        // when
+        Test.startTest();
+        request.Status = 'Closed';
+        Database.SaveResult result = Database.update(request, false);
+        Test.stopTest();
+
+        List<Log__c> logs = [SELECT Message__c FROM Log__c];
+
+        String msg = logs[0].message__c;
+
+        // then
+        System.assertEquals('notify success ; ()', msg);
+    }
 }
