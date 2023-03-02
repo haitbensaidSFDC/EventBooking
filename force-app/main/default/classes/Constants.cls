@@ -20,5 +20,7 @@ public with sharing class Constants {
     // Email messages
     public static final String EMAIL_ERROR_MESSAGE = 'The email failed to send: ';
     public static final String EMAIL_SUCCESS_MESSAGE = 'notify success';
+    public static final String CONFIRM_SUBJECT = 'B.hotels Registration confirmed';
+    public static final String CONFIRM_BODY = 'Hello {0} \n Your registration is confirmed \n Cordially!';
 
 }

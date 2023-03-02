@@ -1,14 +1,16 @@
 public with sharing class EmailService {
 
     /**
-     * notify contacts by email about registration
-     * @param contact contact to be notified
+     * Notify the provided Contact by email about their registration.
+     * @param contact The Contact to be notified.
      */
-    public static void notifyAttendeeByEmail(Contact contact){
-        String confirmSubject = 'B.hotels Registration confirmed';
-        String body = 'Hello ' + contact.name + ' \n Your registration is confirmed \n ' + 'Cordially!' ;
-        sendEmail(contact.Email, confirmSubject, body);
-    } 
+    public static void notifyAttendeeByEmail(Contact contact) {
+        // Format the confirmation body with the Contact's name
+        String body = String.format(Constants.CONFIRM_BODY, new String[]{contact.Name});
+
+        // Send the confirmation email
+        sendEmail(contact.Email, Constants.CONFIRM_SUBJECT, body);
+    }
 
     /**
      * mehtod used to send email messages
@@ -29,7 +31,7 @@ public with sharing class EmailService {
             // used to verify success in unit test
             Log.error(Constants.EMAIL_SUCCESS_MESSAGE);
         } else {
-            // used to verify success in unit test
+            // used to verify failure in unit test
             Log.error(Constants.EMAIL_ERROR_MESSAGE + results[0].errors[0].message);
         }
     }
